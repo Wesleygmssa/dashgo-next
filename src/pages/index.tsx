@@ -1,8 +1,10 @@
 import { Flex, Button, Stack } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-
+import { useHistory } from "react-router-dom";
 import Input from "../components/Form/Input";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 //tipagens
 interface SigninData {
@@ -10,9 +12,18 @@ interface SigninData {
   password: string;
 }
 
+const signInFormSchema = yup.object().shape({
+  email: yup.string().required("E-mail obrigatrio").email("E-mail Inválido"),
+  password: yup.string().required("Senha obrigatria"),
+});
+
 export default function Home() {
   //hooks para manipulação do formulario
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(signInFormSchema),
+  });
+
+  const history = useHistory();
 
   const { errors } = formState;
   console.log(errors);
@@ -22,6 +33,7 @@ export default function Home() {
     async (values, event) => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log(values);
+      window.location.href = "/dashboard";
     },
     []
   );
@@ -46,14 +58,14 @@ export default function Home() {
             type="email"
             error={errors.email}
             //Referencia dos dados passando por props para input
-            {...register("email", { required: "E-mail Obrigátoria" })}
+            {...register("email")}
           />
           <Input
             name="password"
             type="password"
             label="Senha"
             error={errors.password}
-            {...register("password", { required: "Senha Obrigátoria" })}
+            {...register("password")}
           />
         </Stack>
 
