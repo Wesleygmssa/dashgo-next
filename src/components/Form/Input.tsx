@@ -11,6 +11,7 @@ interface InputProps extends ChackraInputProps {
   label?: string;
 }
 
+//recebendo as {props} do input e a {ref}
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   { name, label, ...rest },
   ref

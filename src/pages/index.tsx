@@ -1,4 +1,4 @@
-import { Flex, Button, Stack, FormLabel, FormControl } from "@chakra-ui/react";
+import { Flex, Button, Stack } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -10,8 +10,10 @@ interface SigninData {
 }
 
 export default function Home() {
+  //hooks para manipulação do formulario
   const { register, handleSubmit, formState } = useForm();
 
+  //função para recuperar os dados do form
   const handleSignin: SubmitHandler<SigninData> = useCallback((values) => {
     console.log(values);
   }, []);
@@ -26,6 +28,7 @@ export default function Home() {
         p="8"
         borderRadius={8}
         flexDir="column"
+        //submit dos dados
         onSubmit={handleSubmit(handleSignin)}
       >
         <Stack spacing="4">
@@ -33,6 +36,7 @@ export default function Home() {
             name="email"
             label="E-Mail"
             type="email"
+            //Referencia dos dados passando por props para input
             {...register("email")}
           />
           <Input
