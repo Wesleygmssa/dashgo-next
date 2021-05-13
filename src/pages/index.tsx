@@ -13,8 +13,8 @@ interface SigninData {
 }
 
 const signInFormSchema = yup.object().shape({
-  email: yup.string().required("E-mail obrigatrio").email("E-mail Inválido"),
-  password: yup.string().required("Senha obrigatria"),
+  email: yup.string().required("E-mail obrigatório").email("E-mail Inválido"),
+  password: yup.string().required("Senha obrigatório"),
 });
 
 export default function Home() {
