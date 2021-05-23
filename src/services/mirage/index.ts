@@ -1,5 +1,6 @@
 import { createServer, Factory, Model } from "miragejs";
 import faker from "faker";
+//formatos dos dados
 type User = {
   name: String;
   email: String;
@@ -11,6 +12,7 @@ export function makeServer() {
     models: {
       user: Model.extend<Partial<User>>({}),
     },
+    //Dados fakes
     factories: {
       user: Factory.extend({
         name(i: number) {
@@ -25,10 +27,11 @@ export function makeServer() {
         },
       }),
     },
-
+    //Salvando banco de dados fake dados fakes
     seeds(server) {
       server.createList("user", 10);
     },
+    //rotas fake para conexão api
     routes() {
       this.namespace = "api";
       this.timing = 750;
