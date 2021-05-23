@@ -23,12 +23,9 @@ export default function Home() {
     resolver: yupResolver(signInFormSchema),
   });
 
-  const history = useHistory();
-
   const { errors } = formState;
-  console.log(errors);
 
-  //função para recuperar os dados do form
+  //função para recuperar os dados do form utilizando a bliblioteca react-hook-form
   const handleSignin: SubmitHandler<SigninData> = useCallback(
     async (values, event) => {
       await new Promise((resolve) => setTimeout(resolve, 2000));

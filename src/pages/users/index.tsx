@@ -23,8 +23,7 @@ import { Spinner } from "@chakra-ui/react";
 import { useUsers } from "../../services/hooks/useUsers";
 
 export default function UsersList() {
-  //users => cache
-  const { data, isLoading, isFetching, error } = useUsers();
+  const { data, isLoading, isFetching, error } = useUsers(); //Foi criando um hook para chamada api
 
   const isWindeVersion = useBreakpointValue({
     base: false,

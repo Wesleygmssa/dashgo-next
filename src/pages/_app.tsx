@@ -13,6 +13,7 @@ const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
+    //Passando dados gloabis
     <QueryClientProvider client={queryClient}>
       <ChakraProvider resetCSS theme={theme}>
         <SidebarDrawerProvider>
