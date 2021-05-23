@@ -1,5 +1,5 @@
 import { createServer, Factory, Model } from "miragejs";
-import faker from "faker";
+import faker from "faker"; //Dados fakes
 //formatos dos dados
 type User = {
   name: String;
@@ -27,7 +27,7 @@ export function makeServer() {
         },
       }),
     },
-    //Salvando banco de dados fake dados fakes
+    //Salvando dados fake no banco de dados
     seeds(server) {
       server.createList("user", 10);
     },
@@ -46,3 +46,7 @@ export function makeServer() {
 
   return server;
 }
+
+/***
+ * Necessario configurar e chamar a função no arquivo _app.tsx
+ * */
