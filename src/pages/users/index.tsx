@@ -39,6 +39,7 @@ export default function UsersList() {
           <Flex mb="8" justifyContent="space-between" align="center">
             <Heading size="lg" fontWeight="normal">
               Usuários
+              {/* Loading  */}
               {!isLoading && isFetching && (
                 <Spinner size="sm" color="gray.500" ml="4" />
               )}
