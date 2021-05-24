@@ -110,6 +110,8 @@ export default function UsersList() {
                   ))}
                 </Tbody>
               </Table>
+
+              {/* Componente de paginação */}
               <Pagination
                 totalCountOfRegisters={200}
                 currentPage={5}

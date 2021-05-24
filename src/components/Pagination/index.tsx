@@ -8,7 +8,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-const siblingsCount = 1;
+const siblingsCount = 2;
 
 function generatePagesArray(from: number, to: number) {
   return [...new Array(to - from)]
@@ -51,18 +51,25 @@ export function Pagination({
         <strong>0</strong> - <strong>10</strong> de <strong>100</strong>
       </Box>
       <Stack direction="row" spacing="2">
+        {currentPage > 1 + siblingsCount && <PaginationItem number={1} />}
+
         {/* Paginas anteriores */}
         {previousPages.length > 0 &&
           previousPages.map((page) => {
             return <PaginationItem key={page} number={page} />;
           })}
+
         {/*Pagina atual */}
         <PaginationItem number={currentPage} isCurrent />
 
+        {/* Paginas seguintesS */}
         {nextPages.length > 0 &&
           nextPages.map((page) => {
             return <PaginationItem key={page} number={page} />;
           })}
+        {currentPage + siblingsCount < lastePage && (
+          <PaginationItem number={lastePage} />
+        )}
       </Stack>
     </Stack>
   );
