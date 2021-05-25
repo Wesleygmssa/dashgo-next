@@ -21,8 +21,10 @@ import { Pagination } from "../../components/Pagination";
 import Link from "next/link";
 import { Spinner } from "@chakra-ui/react";
 import { useUsers } from "../../services/hooks/useUsers";
+import { useState } from "react";
 
 export default function UsersList() {
+  const [page, setPage] = useState(1);
   const { data, isLoading, isFetching, error } = useUsers(); //Foi criando um hook para chamada api
 
   const isWindeVersion = useBreakpointValue({
@@ -114,8 +116,8 @@ export default function UsersList() {
               {/* Componente de paginação */}
               <Pagination
                 totalCountOfRegisters={200} //total
-                currentPage={5} //Pagina atual
-                onPageChange={() => {}}
+                currentPage={page} //Pagina atual
+                onPageChange={setPage}
               />
             </>
           )}
