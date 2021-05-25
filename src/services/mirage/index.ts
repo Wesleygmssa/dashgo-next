@@ -52,7 +52,8 @@ export function makeServer() {
           pageStart,
           pageEnd
         );
-
+        
+          //total de páginas
         return new Response(200, { "x-total-count": String(total) }, { users });
       });
       this.post("/users");

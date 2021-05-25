@@ -113,8 +113,8 @@ export default function UsersList() {
 
               {/* Componente de paginação */}
               <Pagination
-                totalCountOfRegisters={200}
-                currentPage={5}
+                totalCountOfRegisters={200} //total
+                currentPage={5} //Pagina atual
                 onPageChange={() => {}}
               />
             </>

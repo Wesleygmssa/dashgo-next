@@ -5,13 +5,14 @@ interface PaginationProps {
   totalCountOfRegisters: number;
   registersPerPage?: number;
   currentPage?: number;
-  onPageChange: (page: number) => void;
+  onPageChange: (page: number) => void; //pagina mudar
 }
 
-const siblingsCount = 2;
+const siblingsCount = 1;
 
+// 2 a 5
 function generatePagesArray(from: number, to: number) {
-  return [...new Array(to - from)]
+  return [...new Array(to - from)] // Gerando array em branco
     .map((_, index) => {
       return from + index + 1;
     })
