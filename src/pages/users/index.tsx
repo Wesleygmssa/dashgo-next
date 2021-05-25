@@ -25,7 +25,7 @@ import { useState } from "react";
 
 export default function UsersList() {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, error } = useUsers(); //Foi criando um hook para chamada api
+  const { data, isLoading, isFetching, error } = useUsers(page); //Foi criando um hook para chamada api
 
   const isWindeVersion = useBreakpointValue({
     base: false,

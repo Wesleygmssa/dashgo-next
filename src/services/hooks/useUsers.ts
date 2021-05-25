@@ -10,8 +10,12 @@ type User = {
   createdAt: string;
 };
 
-export async function getUsers(): Promise<User[]> {
-  const { data } = await api.get("users"); // chamanda api
+export async function getUsers(page: number): Promise<User[]> {
+  const { data } = await api.get("users",{
+    params:{
+      page,
+    }
+  }); // chamanda api
 
   const users = data.users.map((user) => {
     return {
@@ -29,8 +33,8 @@ export async function getUsers(): Promise<User[]> {
   return users;
 }
 
-export function useUsers() {
-  return useQuery("users", getUsers, {
+export function useUsers(page: number) {
+  return useQuery("users", () => getUsers(page), {
     staleTime: 1000 * 5,
   });
 }
