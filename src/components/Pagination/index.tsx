@@ -8,7 +8,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void; //pagina mudar
 }
 
-const siblingsCount = 1; // disntanciar por página
+const siblingsCount = 2; // disntanciar por página
 
 // 2 a 5
 function generatePagesArray(from: number, to: number) {
