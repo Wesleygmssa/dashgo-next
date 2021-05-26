@@ -81,7 +81,7 @@ export default function UsersList() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {data.map((user) => (
+                  {data.users.map((user) => (
                     <Tr key={user.id}>
                       <Td px={["4", "4", "6"]}>
                         <Checkbox colorScheme="pink" />
@@ -115,7 +115,7 @@ export default function UsersList() {
 
               {/* Componente de paginação */}
               <Pagination
-                totalCountOfRegisters={200} //total
+                totalCountOfRegisters={data.totalCount} //total
                 currentPage={page} //Pagina atual
                 onPageChange={setPage}
               />
