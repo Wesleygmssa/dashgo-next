@@ -1,6 +1,6 @@
 import { StringifyOptions } from "node:querystring";
 import { useQuery } from "react-query";
-import { string } from "yup/lib/locale";
+import { number, string } from "yup/lib/locale";
 import { api } from "../api";
 
 type User = {
@@ -10,8 +10,19 @@ type User = {
   createdAt: string;
 };
 
-export async function getUsers(): Promise<User[]> {
-  const { data } = await api.get("users"); // chamanda api
+type GetUsersResponse = {
+  totalCount: number;
+  users: User[];
+}
+
+export async function getUsers(page: number): Promise<GetUsersResponse> {
+  const { data, headers } = await api.get("users",{
+    params:{
+      page,
+    }
+  }); // chamanda api
+
+  const totalCount = Number(headers['x-total-count']); // verificar
 
   const users = data.users.map((user) => {
     return {
@@ -26,11 +37,11 @@ export async function getUsers(): Promise<User[]> {
     };
   });
 
-  return users;
+  return {users,totalCount };
 }
 
-export function useUsers() {
-  return useQuery("users", getUsers, {
+export function useUsers(page: number) {
+  return useQuery(["users", page], () => getUsers(page), {
     staleTime: 1000 * 5,
   });
 }

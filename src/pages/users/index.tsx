@@ -13,35 +13,30 @@ import {
   Td,
   Text,
   useBreakpointValue,
+  Link,
 } from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 import { Pagination } from "../../components/Pagination";
-import Link from "next/link";
-<<<<<<< HEAD
-import { useEffect } from "react";
-=======
+import NextLink from "next/link";
 import { Spinner } from "@chakra-ui/react";
 import { useUsers } from "../../services/hooks/useUsers";
->>>>>>> 76e275f674214e86fc602fa9fc810f580dc2e8a3
+import { useState } from "react";
 
 export default function UsersList() {
-  const { data, isLoading, isFetching, error } = useUsers(); //Foi criando um hook para chamada api
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isFetching, error } = useUsers(page); //Foi criando um hook para chamada api
 
+  //Responsividade
   const isWindeVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
 
-<<<<<<< HEAD
-  useEffect(() => {
-    fetch("http://localhost:3000/api/users")
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-  }, []);
-=======
->>>>>>> 76e275f674214e86fc602fa9fc810f580dc2e8a3
+  //lidar com usuário de pré-busca
+  function handlePrefetchUser(userId: number) {}
+
   return (
     <Box>
       <Header />
@@ -56,7 +51,7 @@ export default function UsersList() {
                 <Spinner size="sm" color="gray.500" ml="4" />
               )}
             </Heading>
-            <Link href="users/create" passHref>
+            <NextLink href="users/create" passHref>
               <Button
                 as="a"
                 fontSize="sm"
@@ -66,7 +61,7 @@ export default function UsersList() {
               >
                 Criar novo
               </Button>
-            </Link>
+            </NextLink>
           </Flex>
           {isLoading ? (
             <Flex justify="center">
@@ -91,14 +86,16 @@ export default function UsersList() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {data.map((user) => (
+                  {data.users.map((user) => (
                     <Tr key={user.id}>
                       <Td px={["4", "4", "6"]}>
                         <Checkbox colorScheme="pink" />
                       </Td>
                       <Td>
                         <Box>
-                          <Text fontWeight="bold">{user.name}</Text>
+                          <Link color="purple.400" onMouseEnter={() => {}}>
+                            <Text fontWeight="bold">{user.name}</Text>
+                          </Link>
                           <Text fontSize="sm" color="gray.300">
                             {user.email}
                           </Text>
@@ -125,9 +122,9 @@ export default function UsersList() {
 
               {/* Componente de paginação */}
               <Pagination
-                totalCountOfRegisters={200}
-                currentPage={5}
-                onPageChange={() => {}}
+                totalCountOfRegisters={data.totalCount} //total
+                currentPage={page} //Pagina atual
+                onPageChange={setPage}
               />
             </>
           )}

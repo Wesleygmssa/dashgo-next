@@ -89,7 +89,7 @@ export function makeServer() {
       this.get("/users", function (schema, request) {
         //logica de páginação
 
-        const { page = 1, per_page = 10 } = request.queryParams;
+        const { page = 1, per_page = 5 } = request.queryParams;
 
         const total = schema.all("user").length;
         //10 - 20
@@ -102,7 +102,8 @@ export function makeServer() {
           pageStart,
           pageEnd
         );
-
+        
+          //total de páginas
         return new Response(200, { "x-total-count": String(total) }, { users });
       });
       this.post("/users");
