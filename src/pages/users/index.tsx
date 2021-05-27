@@ -93,10 +93,7 @@ export default function UsersList() {
                       </Td>
                       <Td>
                         <Box>
-                          <Link
-                            color="purple.400"
-                            onMouseEnter={() => handlePrefetchUser(user.id)}
-                          >
+                          <Link color="purple.400" onMouseEnter={() => {}}>
                             <Text fontWeight="bold">{user.name}</Text>
                           </Link>
                           <Text fontSize="sm" color="gray.300">
