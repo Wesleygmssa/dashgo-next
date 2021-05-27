@@ -56,7 +56,8 @@ export function makeServer() {
           //total de páginas
         return new Response(200, { "x-total-count": String(total) }, { users });
       });
-      this.post("/users");
+      this.get("/users/:id"); //lista usuário pelo ID
+      this.post("/users"); // Rota de salvar usuário
 
       this.namespace = "";
       this.passthrough();
