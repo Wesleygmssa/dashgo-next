@@ -1,4 +1,10 @@
-import { createServer, Factory, Model, Response, ActiveModelSerializer } from "miragejs";
+import {
+  createServer,
+  Factory,
+  Model,
+  Response,
+  ActiveModelSerializer,
+} from "miragejs";
 import faker from "faker"; //Dados fakes
 //formatos dos dados
 type User = {
@@ -9,8 +15,8 @@ type User = {
 
 export function makeServer() {
   const server = createServer({
-    serializers:{
-      
+    //Como deve interpreta os dados que são enviados por ele
+    serializers: {
       application: ActiveModelSerializer,
     },
     models: {
@@ -56,8 +62,8 @@ export function makeServer() {
           pageStart,
           pageEnd
         );
-        
-          //total de páginas
+
+        //total de páginas
         return new Response(200, { "x-total-count": String(total) }, { users });
       });
       this.get("/users/:id"); //lista usuário pelo ID

@@ -37,7 +37,7 @@ export default function UsersList() {
   });
 
   //lidar com usuário de pré-busca
-  async function handlePrefetchUser(userId: number) {
+  async function handlePrefetchUser(userId: string) {
     await queryClient.prefetchQuery(
       ["user", userId],
       async () => {
