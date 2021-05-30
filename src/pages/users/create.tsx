@@ -13,8 +13,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../../components/Form/Input";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
-import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
+import Link from "next/link";
+import { useMutation } from "react-query";
+import { api } from "../../services/api";
+import { queryClient } from "../../services/mirage/queryClient";
+import { useRouter } from "next/dist/client/router";
 
 //tipagens
 interface CreateUserFormData {
@@ -25,11 +29,11 @@ interface CreateUserFormData {
 }
 
 const createUserFormSchema = yup.object().shape({
-  name: yup.string().required("Nome obrigatrio"),
-  email: yup.string().required("E-mail obrigatria").email("E-mail Inválido"),
+  name: yup.string().required("Nome obrigatório"),
+  email: yup.string().required("E-mail obrigatório").email("E-mail Inválido"),
   password: yup
     .string()
-    .required("Senha obrigatria")
+    .required("Senha obrigatório")
     .min(6, "No mínimo 6 caratacters"),
   password_confirmation: yup
     .string()
@@ -37,6 +41,26 @@ const createUserFormSchema = yup.object().shape({
 });
 
 export default function CretaeUser() {
+  const router = useRouter();
+  //useMuttion => pode monitorar dos dados
+  const createUser = useMutation(
+    async (user: CreateUserFormData) => {
+      const response = await api.post("users", {
+        user: {
+          ...user, //passando dados usuário
+          created_at: new Date(),
+        },
+      });
+      console.log(response.data.user);
+      return response.data.user;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("users");
+      },
+    }
+  );
+
   //hooks para manipulação do formulario
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(createUserFormSchema),
@@ -47,8 +71,9 @@ export default function CretaeUser() {
   const handleCreateUser: SubmitHandler<CreateUserFormData> = async (
     values
   ) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(values);
+    await createUser.mutateAsync(values);
+
+    router.push("/users");
   };
   return (
     <Box>
