@@ -25,6 +25,7 @@ import { useUsers } from "../../services/hooks/useUsers";
 import { useState } from "react";
 import { queryClient } from "../../services/mirage/queryClient";
 import { api } from "../../services/api";
+import { GetServerSideProps } from "next";
 
 export default function UsersList() {
   const [page, setPage] = useState(1);
